@@ -31,15 +31,64 @@ load("uk/co/trinitymirror/observer/Observable.js");
 load("uk/co/trinitymirror/dataAccess/package.js");
 load("uk/co/trinitymirror/dataAccess/JsonRetriever.js");
 
-/* imageGallery */
+/* html rendering */
+load("uk/co/trinitymirror/html/package.js");
+load("uk/co/trinitymirror/html/Templates.js");
+
+/* DOM manipulation */
+load("uk/co/trinitymirror/dom/package.js");
+load("uk/co/trinitymirror/dom/HtmlLoader.js");
+load("uk/co/trinitymirror/dom/ClassToggler.js");
+
+/* controller */
 load("uk/co/trinitymirror/imageGallery/package.js");
 load("uk/co/trinitymirror/imageGallery/Controller.js");
 
-/* model populator */
+/* model */
 load("uk/co/trinitymirror/imageGallery/JsonToModel.js");
 
+/* view */
+load("uk/co/trinitymirror/imageGallery/TeaserView.js");
+load("uk/co/trinitymirror/imageGallery/LightboxView.js");
 
-/* the code that uses the above */
+
+/* the code that uses the above (how to set up the gallery) */
 new uk.co.trinitymirror.imageGallery.Controller({
-  "galleryUrl": "http://api.mirror.co.uk/incoming/article1169163.ece/1756099"
+  "galleryUrl": "http://api.mirror.co.uk/incoming/article1169163.ece/1756099",
+  "teaserTemplateUrl": "templates/imageGallery/teaser.tmpl",
+  "lightboxTemplateUrl": "templates/imageGallery/lightbox.tmpl",
+  "teaserSelector": "body"
 }).run();
+
+
+/* integration tests */
+// wait until the image gallery is loaded fully
+var loaded = false;
+var teaserSelector = "#gallery-1169163";
+var lightboxSelector = "#lightbox-1169163";
+var printnoln = function(text) {
+  java.lang.System.out.print(text);
+}
+
+printnoln("Waiting for gallery to load");
+while(!loaded) {
+  loaded = ($(teaserSelector).length > 0) && ($(lightboxSelector).length > 0);
+  java.lang.Thread.sleep(100);
+  printnoln(".");
+}
+print("OK");
+print("");
+print("Test: that the gallery initially lacks the class that");
+print("displays the gallery");
+print("#####################################################");
+if(!$(lightboxSelector).hasClass('has-lightbox')) print("OK")
+else print("FAILED");
+print("");
+print("Test: that clicking the teaser adds the class to");
+print("display the gallery");
+print("#####################################################");
+print("Clicking teaser");
+$(teaserSelector).click();
+print("Checking the gallery has the correct class");
+if($(lightboxSelector).hasClass('has-lightbox')) print("OK")
+else print("FAILED");

@@ -1,0 +1,57 @@
+<div class="lightbox" id="lightbox-{{id}}">
+
+  <div class="lb-pic">
+    <figure class="clearfix wrapper">
+      <div class="image-prev-wrapper">
+        <div class="image-prev"></div>
+      </div>
+      <div class="image-next-wrapper">
+        <div class="image-next"></div>
+      </div>
+      <ul class="viewports">
+        <li class="viewport loaded active">
+	  {{#mainImage}}
+	    <img alt="" class="viewport-img" src="{{url}}/ALTERNATES/s1227b/file.jpg">
+	  {{/mainImage}}
+	</li>
+      </ul>
+    </figure>
+  </div>
+
+  <div class="clearfix lb-body">
+    <span class="ir btn-close"></span>
+    <div class="lb-txt">
+      <h1 class="gallery-title">{{title}}</h1>
+
+      <div class="pagination clearfix">
+        <span class="ir btn-left"></span> <span class="ir btn-right"></span>
+        <div class="showing">
+          <p>Page <span class="currentPage">1</span> of {{numberOfPages}}</p>
+        </div>
+      </div>
+
+      <div class="gallery-data">
+        <div class="gallery-thumbs">
+          <ul class="clearfix">
+	    {{#each images}}
+              <li class="gallery-thumb {{#if isActive}}active{{/if}}">
+                <img src="{{url}}/ALTERNATES/s52/file.jpg" alt="" class="landscape">
+                <span class="gallery-thumb-screen"></span>
+	      </li>
+	    {{/each}}
+          </ul>
+	</div>
+      </div>
+
+      <div class="gallery-captions">
+        <ul>
+          <li class="gallery-caption active">
+            <p>{{caption}}</p>
+          </li>
+        </ul>
+      </div>
+      <span class="restart-btn ir"></span>
+    </div>
+  </div>
+
+</div>

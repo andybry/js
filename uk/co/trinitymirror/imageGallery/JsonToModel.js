@@ -29,7 +29,9 @@ if(typeof uk.co.trinitymirror.imageGallery.JsonToModel == "undefined") (function
    * 
    */
   Class.prototype.handleJson = function(jsonObject) {
+    // calculate the core model (imageGallery)
     var imageGallery = {
+      "id": jsonObject.article.id,
       "title": jsonObject.article.fields.title,
       "images": []
     };
@@ -45,7 +47,32 @@ if(typeof uk.co.trinitymirror.imageGallery.JsonToModel == "undefined") (function
       }
     }
     this.model.setProperty("imageGallery", imageGallery);
-    this.model.setProperty("currentImageIndex", 0);
+
+    // use the core model to populate the model for the teaser template 
+    var numberOfTeaserImages = Math.min(10, imageGallery.images.length);
+    var teaser = {
+      "mainImage": imageGallery.images[0],
+      "otherImages": imageGallery.images.slice(0, numberOfTeaserImages),
+      "id": imageGallery.id,
+      "title": imageGallery.title
+    };
+    this.model.setProperty("teaser", teaser);
+
+    // use the core model to populate the model for the lightbox template
+    var lightbox = {
+      "id": imageGallery.id,
+      "mainImage": imageGallery.images[0],
+      "title": imageGallery.title,
+      "numberOfPages": Math.ceil(imageGallery.images.length / 3),
+      "caption": imageGallery.images[0].caption,
+      "images": imageGallery.images.slice(0, 3)
+    };
+    lightbox.images[0].isActive = true;
+    this.model.setProperty("lightbox", lightbox);
+
+    // populate DOM manipulation fields (these will trigger changes to the DOM)
+    this.model.setProperty("currentImageIndex", 0); // which image is displayed
+    this.model.setProperty("showGallery", false); // whether the gallery is visible
   }
 
 })();

@@ -10,21 +10,30 @@ if(typeof uk.co.trinitymirror.imageGallery.Controller == "undefined") (function(
    *
    * @param parameters:
    *   galleryUrl - the JSON API URL of the gallery [required]
-   *   jQuery - jQuery 
-   *   Handlebars - Handlebars
+   *   teaserTemplateUrl - the URL of the Handlebars template for the teaser
+   *   lightboxTemplateUrl - the URL of the Handlebars template for the teaser
+   *   teaserSelector - the selector for the part of the page where the gallery is placed
+   *                    Gallery is prepended to this point
    *   JsonRetrieverClass - defaults to JsonRetriever, 
    *                        but can be overridden by setting this value
    *   ModelClass - the class used to store the data (defaults to Observable)
    *   JsonToModelClass - the class used to populate the model using the JSON
    *                      data. (defaults to JsonToModel)
+   *   TeaserViewClass - the class used to render the teaser onto the page and attach
+   *               the model
+   *   LightboxViewClass - the class used to render the lightbox onto the page and attach
+   *               the model
    */
   uk.co.trinitymirror.imageGallery.Controller = function(parameters) {
     this.galleryUrl = parameters.galleryUrl;
-    this.jQuery = parameters.jQuery || jQuery;
-    this.Handlebars = parameters.Handlebars || Handlebars;
+    this.teaserTemplateUrl = parameters.teaserTemplateUrl;
+    this.lightboxTemplateUrl = parameters.lightboxTemplateUrl;
+    this.teaserSelector = parameters.teaserSelector;
     this.JsonRetrieverClass = parameters.TransportClass || uk.co.trinitymirror.dataAccess.JsonRetriever;
     this.ModelClass = parameters.ModelClass || uk.co.trinitymirror.observer.Observable;
     this.JsonToModelClass = parameters.JsonToModelClass || uk.co.trinitymirror.imageGallery.JsonToModel;
+    this.TeaserViewClass = parameters.TeaserViewClass || uk.co.trinitymirror.imageGallery.TeaserView;
+    this.LightboxViewClass = parameters.LightboxViewClass || uk.co.trinitymirror.imageGallery.LightboxView;
   };
   var Class = uk.co.trinitymirror.imageGallery.Controller;
 
@@ -39,24 +48,23 @@ if(typeof uk.co.trinitymirror.imageGallery.Controller == "undefined") (function(
    * user interaction
    */
   Class.prototype.run = function() {
-    var jsonRetriever = new this.JsonRetrieverClass(this.jQuery);
+    var jsonRetriever = new this.JsonRetrieverClass();
     var model = new this.ModelClass();
-    model.addPropertyListener("imageGallery", {
-      "respondToChange": function(model, value) {
-        print(value.title);
-      }
+    // create the views
+    var teaserView = new this.TeaserViewClass({
+      "model": model,
+      "teaserTemplateUrl": this.teaserTemplateUrl,
+      "teaserSelector": this.teaserSelector
     });
-    model.addPropertyListener("currentImageIndex", {
-      "respondToChange": function(model, value) {
-        print(value);
-      }
+    teaserView.createView();
+    var lightboxView = new this.LightboxViewClass({
+      "model": model,
+      "lightboxTemplateUrl": this.lightboxTemplateUrl
     });
+    lightboxView.createView(); 
+    // populate the model
     var jsonToModel = new this.JsonToModelClass(model);
     jsonRetriever.retrieveJson(this.galleryUrl, jsonToModel);
-    // an image gallery API URL: http://api.mirror.co.uk/incoming/article1169163.ece/1756099
-    // the article that it's embedded in: http://www.mirror.co.uk/3am/us-gossip/kristen-stewart-pictured-rupert-sanders-1848973
-    // the HTML for the image gallery (ajax): http://www.mirror.co.uk/incoming/article1169163.ece?service=ajax&share_art_id=1848973
-    // 10 images on the launch page of the gallery
   }
   
 })();

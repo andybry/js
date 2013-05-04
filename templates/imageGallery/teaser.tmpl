@@ -1,0 +1,24 @@
+<div id="gallery-{{id}}" class="image-gallery">
+  <figure class="clearfix">
+    {{#mainImage}}
+      <div class="thumb">
+        <img src="{{url}}/ALTERNATES/s927b/file.jpg" class="portrait" alt="" />
+        <span class="ir btn-fullscreen">View gallery</span>
+      </div>
+    {{/mainImage}}
+  </figure>
+  <div class="gallery-data">
+    <div class="gallery-thumbs">
+      <ul class="clearfix">
+        {{#each otherImages}}
+          <li class="gallery-thumb">
+            <img src="{{url}}/ALTERNATES/s52/file.jpg" class="landscape" alt="" />
+            <span class="gallery-thumb-screen"></span>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="gallery-caption">Kristen Stewart and Robert Pattinson - the love story (so far)</div>
+    <span class="ir btn-fullscreen-thumb">View gallery</span>
+  </div>
+</div>

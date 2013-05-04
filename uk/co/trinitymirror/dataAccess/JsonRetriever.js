@@ -9,10 +9,12 @@ if(typeof uk.co.trinitymirror.dataAccess.JsonRetriever == "undefined") (function
   /*
    * Constructor
    *
-   * @param jQuery: an object with an ajax method like jQuery (probably jQuery)
+   * @param parameters
+   *   jQuery: override jQuery if required
    */
-  uk.co.trinitymirror.dataAccess.JsonRetriever = function(jQuery) {
-    this.jQuery = jQuery;
+  uk.co.trinitymirror.dataAccess.JsonRetriever = function(parameters) {
+    var parameters = parameters || {};
+    this.jQuery = parameters.jQuery || jQuery;
   };
   var Class = uk.co.trinitymirror.dataAccess.JsonRetriever;
 
