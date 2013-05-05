@@ -19,37 +19,37 @@ jQuery.support.cors = true; // tells jQuery to allow CORS
 load("lib/handlebars-1.0.0-rc.3.js");
 
 /* set up Trinity Mirror Packages */
-load("uk/package.js");
-load("uk/co/package.js");
-load("uk/co/trinitymirror/package.js");
+load("src/uk/package.js");
+load("src/uk/co/package.js");
+load("src/uk/co/trinitymirror/package.js");
 
 /* Observable */
-load("uk/co/trinitymirror/observer/package.js");
-load("uk/co/trinitymirror/observer/Observable.js");
+load("src/uk/co/trinitymirror/observer/package.js");
+load("src/uk/co/trinitymirror/observer/Observable.js");
 
 /* json access */
-load("uk/co/trinitymirror/dataAccess/package.js");
-load("uk/co/trinitymirror/dataAccess/JsonRetriever.js");
+load("src/uk/co/trinitymirror/dataAccess/package.js");
+load("src/uk/co/trinitymirror/dataAccess/JsonRetriever.js");
 
 /* html rendering */
-load("uk/co/trinitymirror/html/package.js");
-load("uk/co/trinitymirror/html/Templates.js");
+load("src/uk/co/trinitymirror/html/package.js");
+load("src/uk/co/trinitymirror/html/Templates.js");
 
 /* DOM manipulation */
-load("uk/co/trinitymirror/dom/package.js");
-load("uk/co/trinitymirror/dom/HtmlLoader.js");
-load("uk/co/trinitymirror/dom/ClassToggler.js");
+load("src/uk/co/trinitymirror/dom/package.js");
+load("src/uk/co/trinitymirror/dom/HtmlLoader.js");
+load("src/uk/co/trinitymirror/dom/ClassToggler.js");
 
 /* controller */
-load("uk/co/trinitymirror/imageGallery/package.js");
-load("uk/co/trinitymirror/imageGallery/Controller.js");
+load("src/uk/co/trinitymirror/imageGallery/package.js");
+load("src/uk/co/trinitymirror/imageGallery/Controller.js");
 
 /* model */
-load("uk/co/trinitymirror/imageGallery/JsonToModel.js");
+load("src/uk/co/trinitymirror/imageGallery/JsonToModel.js");
 
 /* view */
-load("uk/co/trinitymirror/imageGallery/TeaserView.js");
-load("uk/co/trinitymirror/imageGallery/LightboxView.js");
+load("src/uk/co/trinitymirror/imageGallery/TeaserView.js");
+load("src/uk/co/trinitymirror/imageGallery/LightboxView.js");
 
 
 /* the code that uses the above (how to set up the gallery) */
