@@ -35,6 +35,7 @@ if(typeof uk.co.trinitymirror.dataAccess.JsonRetriever == "undefined") (function
   Class.prototype.retrieveJson = function(url, handler) {
     this.jQuery.ajax({
       "url": url,
+      "dataType": "json",
       "success": handler.handleJson,
       "context": handler
     });

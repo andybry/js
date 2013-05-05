@@ -17,6 +17,7 @@ load("lib/env.rhino.1.2.js");
 load("lib/jquery-1.9.1.js");
 jQuery.support.cors = true; // tells jQuery to allow CORS
 load("lib/handlebars-1.0.0-rc.3.js");
+load("lib/xdr.js"); // allows cors on IE
 
 /* set up Trinity Mirror Packages */
 load("src/uk/package.js");
