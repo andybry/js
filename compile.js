@@ -9,13 +9,13 @@ var PrintWriter = java.io.PrintWriter;
 // delete a file or directory
 function deleteFile(file) {
   if(file.isFile()) {
-    file.delete();
+    file["delete"]();
   } else {
     var files = file.listFiles()
     for(var index in files) {
       deleteFile(files[index]);
     }
-    file.delete();
+    file["delete"]();
   }
 }
 
